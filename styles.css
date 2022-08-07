@@ -11,40 +11,43 @@ body {
 }
 
 .calcBody {
-  width: 400px;
-  height: 600px;
+  width: 450px;
   border: 2px solid red;
 }
 
 .display {
-  height: 25%;
-  border: 1px solid red;
-}
-
-.topRow,
-.botRow {
-  height: 50%;
+  height: 75px;
+  padding: 10px;
   border: 1px solid blue;
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
 
-.btns {
+.buttons {
   height: 75%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   border: 1px solid red;
+  padding: 10px;
 }
 
 .subBtn {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 20%;
-  width: 20%;
+  width: 23%;
+  height: 90px;
   border: 1px solid blue;
   font-size: 40px;
+}
+
+.zero {
+  width: 46%;
+}
+
+.clicked {
+  background-color: gold;
 }

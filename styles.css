@@ -3,15 +3,16 @@
 * {
   margin: 0;
   padding: 0;
+  font-family: "Roboto", sans-serif;
 }
 
 body {
-  font-family: "Roboto", sans-serif;
   height: 100vh;
+  background: rgb(25, 25, 25);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgb(25, 25, 25);
 }
 
 .calcBody {
@@ -22,7 +23,8 @@ body {
 
 .display {
   height: 80px;
-  padding: 20px;
+  margin: 0 20px;
+  padding: 20px 0;
   font-size: 40px;
   color: white;
   border-bottom: 5px solid darkgray;
@@ -30,6 +32,7 @@ body {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  overflow: hidden;
 }
 
 .buttons {
@@ -95,4 +98,21 @@ body {
 
 .percentage.clicked {
   background-color: white;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  color: white;
+}
+
+footer a {
+  text-decoration: none;
+  color: white;
+}
+
+footer img {
+  max-height: 20px;
 }

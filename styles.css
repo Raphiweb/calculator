@@ -1,24 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
 * {
   margin: 0;
   padding: 0;
 }
 
 body {
+  font-family: "Roboto", sans-serif;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: rgb(25, 25, 25);
 }
 
 .calcBody {
-  width: 450px;
-  border: 2px solid red;
+  max-width: 400px;
+  border: 7px solid darkgray;
+  border-radius: 50px;
 }
 
 .display {
-  height: 75px;
-  padding: 10px;
-  border: 1px solid blue;
+  height: 80px;
+  padding: 20px;
+  font-size: 40px;
+  color: white;
+  border-bottom: 5px solid darkgray;
+  border-radius: 50px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -30,24 +38,61 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  border: 1px solid red;
   padding: 10px;
+  gap: 10px;
 }
 
 .subBtn {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 23%;
-  height: 90px;
-  border: 1px solid blue;
+  width: 85px;
+  height: 85px;
   font-size: 40px;
+  border-radius: 50%;
+}
+
+.number,
+.comma {
+  background-color: rgb(62, 62, 62);
+  color: white;
+}
+
+.operator {
+  background-color: goldenrod;
+  color: white;
+  transition: all 0.25s ease;
+}
+
+.clickedOperator {
+  background-color: white;
+  color: goldenrod;
+}
+
+.clear,
+.signChange,
+.percentage {
+  background-color: darkgray;
+  transition: background-color 0.25s ease;
+}
+
+.clear:active {
+  background-color: white;
+}
+
+.signChange:active {
+  background-color: white;
 }
 
 .zero {
-  width: 46%;
+  width: 180px;
+  border-radius: 50px;
 }
 
 .clicked {
-  background-color: gold;
+  background-color: rgb(151, 151, 151);
+}
+
+.percentage.clicked {
+  background-color: white;
 }

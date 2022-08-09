@@ -1,3 +1,10 @@
+let a = "";
+let b = "";
+let operator = "";
+let waitingForA = true;
+let waitingForB = false;
+let percentageCalc = false;
+
 const display = document.querySelector(".display");
 const numbers = document.querySelectorAll(".number");
 const allButtons = document.querySelectorAll(".subBtn");
@@ -10,58 +17,186 @@ const percentage = document.querySelector(".percentage");
 
 document.addEventListener("keydown", keyboardInput);
 document.querySelector(".clear").addEventListener("click", clearDisplay);
-document.querySelector(".comma").addEventListener("click", displayButtonText);
 document.querySelector(".signChange").addEventListener("click", changeSign);
+document
+  .querySelector(".comma")
+  .addEventListener("click", displayButtonTextInput);
 percentage.addEventListener("click", (e) => {
   operate;
-  displayButtonText(e);
+  displayButtonTextInput(e);
+  addNumberClickedStyle(e);
   percentageCalc = true;
 });
 
 for (let i = 0; i < numbers.length; i++) {
-  numbers[i].addEventListener("click", displayButtonText);
+  numbers[i].addEventListener("click", displayButtonTextInput);
   numbers[i].addEventListener("click", getNum);
+  numbers[i].addEventListener("click", addNumberClickedStyle);
 }
 
 addButton.addEventListener("click", (e) => {
   getOperator(e);
+  addOperatorClickedStyle("+");
 });
 subtractButton.addEventListener("click", (e) => {
   getOperator(e);
+  addOperatorClickedStyle("-");
 });
 multiplyButton.addEventListener("click", (e) => {
   getOperator(e);
+  addOperatorClickedStyle("*");
 });
 divideButton.addEventListener("click", (e) => {
+  addOperatorClickedStyle("/");
   getOperator(e);
 });
 equalsButton.addEventListener("click", () => {
   operate(a, b, operator);
+  addOperatorClickedStyle("=");
 });
 
-let a = "";
-let b = "";
-let operator = "";
-let waitingForA = true;
-let waitingForB = false;
-let percentageCalc = false;
+function getNum() {
+  if (waitingForA === true) {
+    a = display.innerText;
+  }
+  if (waitingForA != true) {
+    b = display.innerText;
+  }
+}
 
 function keyboardInput(e) {
   if ((e.key >= 0 && e.key <= 9) || e.key === "." || e.key === "%") {
     displayKeyboardInput(e.key);
     getNum();
+    addNumberClickedStyleKeyboard(e.key);
   }
-
   if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/") {
     getKeyboardOperator(e.key);
+    addOperatorClickedStyleKeyboard(e.key);
   }
-
   if (e.key === "=" || e.key === "Enter") {
     operate(a, b, operator);
+    addOperatorClickedStyleKeyboard(e.key);
+  }
+  if (e.key === "c") {
+    clearDisplay();
   }
 }
 
-function displayButtonText(e) {
+function addOperatorClickedStyle(operator) {
+  addButton.classList.remove("clickedOperator");
+  subtractButton.classList.remove("clickedOperator");
+  multiplyButton.classList.remove("clickedOperator");
+  divideButton.classList.remove("clickedOperator");
+  equalsButton.classList.remove("clickedOperator");
+  switch (operator) {
+    case "+":
+      addButton.classList.add("clickedOperator");
+      break;
+    case "-":
+      subtractButton.classList.add("clickedOperator");
+      break;
+    case "*":
+      multiplyButton.classList.add("clickedOperator");
+      break;
+    case "/":
+      divideButton.classList.add("clickedOperator");
+      break;
+    case "=":
+      equalsButton.classList.add("clickedOperator");
+      break;
+    default:
+      return;
+  }
+}
+
+function addOperatorClickedStyleKeyboard(key) {
+  addButton.classList.remove("clickedOperator");
+  subtractButton.classList.remove("clickedOperator");
+  multiplyButton.classList.remove("clickedOperator");
+  divideButton.classList.remove("clickedOperator");
+  equalsButton.classList.remove("clickedOperator");
+  switch (key) {
+    case "+":
+      addButton.classList.add("clickedOperator");
+      break;
+    case "-":
+      subtractButton.classList.add("clickedOperator");
+      break;
+    case "*":
+      multiplyButton.classList.add("clickedOperator");
+      break;
+    case "/":
+      divideButton.classList.add("clickedOperator");
+      break;
+    case "=":
+      equalsButton.classList.add("clickedOperator");
+      break;
+    case "Enter":
+      equalsButton.classList.add("clickedOperator");
+      break;
+    default:
+      return;
+  }
+}
+
+function addNumberClickedStyle(e) {
+  for (let i = 0; i < numbers.length; i++) {
+    numbers[i].classList.remove("clicked");
+  }
+  percentage.classList.remove("clicked");
+
+  e.target.classList.add("clicked");
+}
+
+function addNumberClickedStyleKeyboard(key) {
+  for (let i = 0; i < numbers.length; i++) {
+    numbers[i].classList.remove("clicked");
+  }
+  percentage.classList.remove("clicked");
+  switch (key) {
+    case "1":
+      document.querySelector(".one").classList.add("clicked");
+      break;
+    case "2":
+      document.querySelector(".two").classList.add("clicked");
+      break;
+    case "3":
+      document.querySelector(".three").classList.add("clicked");
+      break;
+    case "4":
+      document.querySelector(".four").classList.add("clicked");
+      break;
+    case "5":
+      document.querySelector(".five").classList.add("clicked");
+      break;
+    case "6":
+      document.querySelector(".six").classList.add("clicked");
+      break;
+    case "7":
+      document.querySelector(".seven").classList.add("clicked");
+      break;
+    case "8":
+      document.querySelector(".eight").classList.add("clicked");
+      break;
+    case "9":
+      document.querySelector(".nine").classList.add("clicked");
+      break;
+    case "0":
+      document.querySelector(".zero").classList.add("clicked");
+      break;
+    case ".":
+      document.querySelector(".comma").classList.add("clicked");
+      break;
+    case "%":
+      document.querySelector(".percentage").classList.add("clicked");
+      break;
+    default:
+      return;
+  }
+}
+
+function displayButtonTextInput(e) {
   if (
     e.target === percentage &&
     (waitingForA === true || waitingForB === true)
@@ -74,7 +209,6 @@ function displayButtonText(e) {
     return;
   }
   if (waitingForB === true) {
-    // problem
     if (/\d/.test(parseFloat(display.innerText)) === false) {
       display.innerText += e.target.innerText;
       waitingForB = false;
@@ -113,7 +247,6 @@ function displayKeyboardInput(key) {
 }
 
 function getOperator(e) {
-  console.log(operator + " op start");
   if (
     e.target === subtractButton &&
     display.innerText === "" &&
@@ -146,7 +279,6 @@ function getOperator(e) {
     operate(a, b, operator);
     operator = e.target.innerText;
   }
-  console.log(operator + " op end");
 }
 
 function getKeyboardOperator(key) {
@@ -182,56 +314,6 @@ function getKeyboardOperator(key) {
     operate(a, b, operator);
     operator = key;
   }
-  console.log(operator + " op");
-}
-
-function clearDisplay() {
-  display.innerText = "";
-  a = "";
-  b = "";
-  operator = "";
-  waitingForA = true;
-  waitingForB = false;
-  percentageCalc = false;
-}
-
-function changeSign() {
-  if (display.innerText.includes("-") === false) {
-    display.innerText = "-" + display.innerText;
-  } else display.innerText = display.innerText.slice(1);
-}
-
-function getNum() {
-  if (waitingForA === true) {
-    a = display.innerText;
-  }
-  if (waitingForA != true) {
-    b = display.innerText;
-  }
-}
-
-function resetOperator() {
-  operator = "";
-}
-
-function add(num1, num2) {
-  display.innerText = num1 + num2;
-  a = display.innerText;
-}
-
-function subtract(num1, num2) {
-  display.innerText = num1 - num2;
-  a = display.innerText;
-}
-
-function multiply(num1, num2) {
-  display.innerText = num1 * num2;
-  a = display.innerText;
-}
-
-function divide(num1, num2) {
-  display.innerText = num1 / num2;
-  a = display.innerText;
 }
 
 function operate(num1, num2, operator) {
@@ -257,17 +339,41 @@ function operate(num1, num2, operator) {
       multiply(num1, num2);
       break;
     case "÷":
-      if (num2 === 0) display.innerText = "You must not divide by 0!";
+      if (num2 === 0) display.innerText = "No division by 0!";
       else divide(num1, num2);
       break;
     default:
-      return "ERROR!";
+      return;
   }
   waitingForB = true;
   resetOperator();
 }
 
+function add(num1, num2) {
+  display.innerText = num1 + num2;
+  a = display.innerText;
+}
+
+function subtract(num1, num2) {
+  display.innerText = num1 - num2;
+  a = display.innerText;
+}
+
+function multiply(num1, num2) {
+  display.innerText = num1 * num2;
+  a = display.innerText;
+}
+
+function divide(num1, num2) {
+  display.innerText = num1 / num2;
+  a = display.innerText;
+}
+
 function percentageFunction(num1, num2, operator) {
+  if (num2 === 0) {
+    display.innerText = "No division by 0!";
+    return;
+  }
   switch (operator) {
     case "+":
       display.innerText = num1 + (num1 / 100) * num2;
@@ -296,6 +402,32 @@ function percentageFunction(num1, num2, operator) {
       percentageCalc = false;
       break;
     default:
-      return "ERROR!";
+      return;
   }
 }
+
+function changeSign() {
+  if (display.innerText.includes("-") === false) {
+    display.innerText = "-" + display.innerText;
+  } else display.innerText = display.innerText.slice(1);
+}
+
+function resetOperator() {
+  operator = "";
+}
+
+function clearDisplay() {
+  display.innerText = "";
+  a = "";
+  b = "";
+  operator = "";
+  waitingForA = true;
+  waitingForB = false;
+  percentageCalc = false;
+  addNumberClickedStyleKeyboard();
+  addNumberClickedStyle;
+  addOperatorClickedStyleKeyboard();
+  addOperatorClickedStyle;
+}
+
+// vitun jees 09.08.2022
